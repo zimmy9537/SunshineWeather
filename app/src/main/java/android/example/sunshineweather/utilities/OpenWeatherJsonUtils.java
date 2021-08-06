@@ -20,9 +20,7 @@ public final class OpenWeatherJsonUtils {
      * now, we just convert the JSON into human-readable strings.
      *
      * @param forecastJsonStr JSON response from server
-     *
      * @return Array of Strings describing weather data
-     *
      * @throws JSONException If JSON data cannot be properly parsed
      */
     public static String[] getSimpleWeatherStringsFromJson(Context context, String forecastJsonStr)
@@ -123,7 +121,6 @@ public final class OpenWeatherJsonUtils {
      *
      * @param context         An application context, such as a service or activity context.
      * @param forecastJsonStr The JSON to parse into ContentValues.
-     *
      * @return An array of ContentValues parsed from the JSON.
      */
     public static ContentValues[] getFullWeatherDataFromJson(Context context, String forecastJsonStr) {
