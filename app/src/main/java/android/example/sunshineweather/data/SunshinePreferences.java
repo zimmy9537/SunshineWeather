@@ -1,31 +1,37 @@
 package android.example.sunshineweather.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 public class SunshinePreferences {
+
+    public static final String MyPREFERENCES = "MyPrefs";
+    public static final String location_preference = "locationKey";
+    public static final String unit_preference = "UnitsKey";
+    SharedPreferences sharedPreferences;
 
     /*
      * Human readable location string, provided by the API.  Because for styling,
      * "Mountain View" is more recognizable than 94043.
      */
-    public static final String PREF_CITY_NAME = "city_name";
+    public static final String PREF_CITY_NAME = "Jamnagar";
 
     /*
      * In order to uniquely pinpoint the location on the map when we launch the
      * map intent, we store the latitude and longitude.
      */
-    public static final String PREF_COORD_LAT = "coord_lat";
-    public static final String PREF_COORD_LONG = "coord_long";
+    public static final Double PREF_COORD_LAT = 22.47;
+    public static final Double PREF_COORD_LONG = 70.07;
 
     /*
      * Before you implement methods to return your REAL preference for location,
      * we provide some default values to work with.
      */
-    private static final String DEFAULT_WEATHER_LOCATION = "94043,USA";
-    private static final double[] DEFAULT_WEATHER_COORDINATES = {37.4284, 122.0724};
+    private static final String DEFAULT_WEATHER_LOCATION = "Jamnagar";
+    private static final double[] DEFAULT_WEATHER_COORDINATES = {22.47, 70.07};
 
     private static final String DEFAULT_MAP_LOCATION =
-            "1600 Amphitheatre Parkway, Mountain View, CA 94043";
+            "Jamnagar";
 
     /**
      * Helper method to handle setting location details in Preferences (City Name, Latitude,
@@ -37,7 +43,6 @@ public class SunshinePreferences {
      * @param lon      The longitude of the city
      */
     static public void setLocationDetails(Context c, String cityName, double lat, double lon) {
-        /** This will be implemented in a future lesson **/
     }
 
     /**
@@ -50,7 +55,6 @@ public class SunshinePreferences {
      * @param lon             The longitude of the city
      */
     static public void setLocation(Context c, String locationSetting, double lat, double lon) {
-        /** This will be implemented in a future lesson **/
     }
 
     /**
@@ -59,7 +63,6 @@ public class SunshinePreferences {
      * @param c Context used to get the SharedPreferences
      */
     static public void resetLocationCoordinates(Context c) {
-        /** This will be implemented in a future lesson **/
     }
 
     /**
@@ -72,7 +75,6 @@ public class SunshinePreferences {
      * "94043,USA" if SharedPreferences have not been implemented yet.
      */
     public static String getPreferredWeatherLocation(Context context) {
-        /** This will be implemented in a future lesson **/
         return getDefaultWeatherLocation();
     }
 
@@ -83,7 +85,6 @@ public class SunshinePreferences {
      * @return true If metric display should be used
      */
     public static boolean isMetric(Context context) {
-        /** This will be implemented in a future lesson **/
         return true;
     }
 
@@ -107,17 +108,14 @@ public class SunshinePreferences {
      * @return true if lat/long are set
      */
     public static boolean isLocationLatLonAvailable(Context context) {
-        /** This will be implemented in a future lesson **/
         return false;
     }
 
     private static String getDefaultWeatherLocation() {
-        /** This will be implemented in a future lesson **/
         return DEFAULT_WEATHER_LOCATION;
     }
 
     public static double[] getDefaultWeatherCoordinates() {
-        /** This will be implemented in a future lesson **/
         return DEFAULT_WEATHER_COORDINATES;
     }
 }

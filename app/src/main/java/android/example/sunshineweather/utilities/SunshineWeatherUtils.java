@@ -1,377 +1,263 @@
 package android.example.sunshineweather.utilities;
 
-import android.content.Context;
 import android.example.sunshineweather.R;
-import android.example.sunshineweather.data.SunshinePreferences;
-import android.util.Log;
+import android.example.sunshineweather.weatherAPI.Current;
+import android.example.sunshineweather.weatherAPI.Day;
+import android.example.sunshineweather.weatherAPI.Hour;
 
 public final class SunshineWeatherUtils {
 
     private static final String LOG_TAG = SunshineWeatherUtils.class.getSimpleName();
 
-    /**
-     * This method will convert a temperature from Celsius to Fahrenheit.
-     *
-     * @param temperatureInCelsius Temperature in degrees Celsius(°C)
-     *
-     * @return Temperature in degrees Fahrenheit (°F)
-     */
-    private static double celsiusToFahrenheit(double temperatureInCelsius) {
-        double temperatureInFahrenheit = (temperatureInCelsius * 1.8) + 32;
-        return temperatureInFahrenheit;
+    public static String getTemperaturePerHour(Hour hour,boolean isMetric)
+    {
+        if(isMetric)
+        {
+            return String.valueOf(hour.getTempC()).concat("°");
+        }
+        else
+        {
+            return String.valueOf(hour.getTempF()).concat("°");
+        }
     }
 
-    /**
-     * Temperature data is stored in Celsius by our app. Depending on the user's preference,
-     * the app may need to display the temperature in Fahrenheit. This method will perform that
-     * temperature conversion if necessary. It will also format the temperature so that no
-     * decimal points show. Temperatures will be formatted to the following form: "21°C"
-     *
-     * @param context     Android Context to access preferences and resources
-     * @param temperature Temperature in degrees Celsius (°C)
-     *
-     * @return Formatted temperature String in the following form:
-     * "21°C"
-     */
-    public static String formatTemperature(Context context, double temperature) {
-        int temperatureFormatResourceId = R.string.format_temperature_celsius;
 
-        if (!SunshinePreferences.isMetric(context)) {
-            temperature = celsiusToFahrenheit(temperature);
-            temperatureFormatResourceId = R.string.format_temperature_fahrenheit;
+    public static String getTemperatureFeelsLike(Current current,boolean isMetric)
+    {
+        if(isMetric)
+        {
+            return String.valueOf(current.getFeelslikeC()).concat("°");
         }
-
-        /* For presentation, assume the user doesn't care about tenths of a degree. */
-        return String.format(context.getString(temperatureFormatResourceId), temperature);
+        else
+        {
+            return String.valueOf(current.getFeelslikeF()).concat("°");
+        }
     }
 
-    /**
-     * This method will format the temperatures to be displayed in the
-     * following form: "HIGH°C / LOW°C"
-     *
-     * @param context Android Context to access preferences and resources
-     * @param high    High temperature for a day in user's preferred units
-     * @param low     Low temperature for a day in user's preferred units
-     *
-     * @return String in the form: "HIGH°C / LOW°C"
-     */
-    public static String formatHighLows(Context context, double high, double low) {
-        long roundedHigh = Math.round(high);
-        long roundedLow = Math.round(low);
-
-        String formattedHigh = formatTemperature(context, roundedHigh);
-        String formattedLow = formatTemperature(context, roundedLow);
-
-        String highLowStr = formattedHigh + " / " + formattedLow;
-        return highLowStr;
+    public static String getTemperatureMinimum(Day day,boolean isMetric)
+    {
+        if(isMetric)
+        {
+            return String.valueOf(day.getMintempC()).concat("°");
+        }
+        else
+        {
+            return String.valueOf(day.getMintempF()).concat("°");
+        }
     }
 
-    /**
-     * This method uses the wind direction in degrees to determine compass direction as a
-     * String. (eg NW) The method will return the wind String in the following form: "2 km/h SW"
-     *
-     * @param context   Android Context to access preferences and resources
-     * @param windSpeed Wind speed in kilometers / hour
-     * @param degrees   Degrees as measured on a compass, NOT temperature degrees!
-     *                  See https://www.mathsisfun.com/geometry/degrees.html
-     *
-     * @return Wind String in the following form: "2 km/h SW"
-     */
-    public static String getFormattedWind(Context context, float windSpeed, float degrees) {
-
-        int windFormat = R.string.format_wind_kmh;
-
-        if (!SunshinePreferences.isMetric(context)) {
-            windFormat = R.string.format_wind_mph;
-            windSpeed = .621371192237334f * windSpeed;
+    public static String getTemperatureMaximum(Day day,boolean isMetric)
+    {
+        if(isMetric)
+        {
+            return String.valueOf(day.getMaxtempC()).concat("°");
         }
-
-        /*
-         * You know what's fun, writing really long if/else statements with tons of possible
-         * conditions. Seriously, try it!
-         */
-        String direction = "Unknown";
-        if (degrees >= 337.5 || degrees < 22.5) {
-            direction = "N";
-        } else if (degrees >= 22.5 && degrees < 67.5) {
-            direction = "NE";
-        } else if (degrees >= 67.5 && degrees < 112.5) {
-            direction = "E";
-        } else if (degrees >= 112.5 && degrees < 157.5) {
-            direction = "SE";
-        } else if (degrees >= 157.5 && degrees < 202.5) {
-            direction = "S";
-        } else if (degrees >= 202.5 && degrees < 247.5) {
-            direction = "SW";
-        } else if (degrees >= 247.5 && degrees < 292.5) {
-            direction = "W";
-        } else if (degrees >= 292.5 && degrees < 337.5) {
-            direction = "NW";
+        else
+        {
+            return String.valueOf(day.getMaxtempF()).concat("°");
         }
-        return String.format(context.getString(windFormat), windSpeed, direction);
     }
 
-    /**
-     * Helper method to provide the string according to the weather
-     * condition id returned by the OpenWeatherMap call.
-     *
-     * @param context   Android context
-     * @param weatherId from OpenWeatherMap API response
-     *                  http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
-     *
-     * @return String for the weather condition, null if no relation is found.
-     */
-    public static String getStringForWeatherCondition(Context context, int weatherId) {
-        int stringId;
-        if (weatherId >= 200 && weatherId <= 232) {
-            stringId = R.string.condition_2xx;
-        } else if (weatherId >= 300 && weatherId <= 321) {
-            stringId = R.string.condition_3xx;
-        } else switch (weatherId) {
-            case 500:
-                stringId = R.string.condition_500;
-                break;
-            case 501:
-                stringId = R.string.condition_501;
-                break;
-            case 502:
-                stringId = R.string.condition_502;
-                break;
-            case 503:
-                stringId = R.string.condition_503;
-                break;
-            case 504:
-                stringId = R.string.condition_504;
-                break;
-            case 511:
-                stringId = R.string.condition_511;
-                break;
-            case 520:
-                stringId = R.string.condition_520;
-                break;
-            case 531:
-                stringId = R.string.condition_531;
-                break;
-            case 600:
-                stringId = R.string.condition_600;
-                break;
-            case 601:
-                stringId = R.string.condition_601;
-                break;
-            case 602:
-                stringId = R.string.condition_602;
-                break;
-            case 611:
-                stringId = R.string.condition_611;
-                break;
-            case 612:
-                stringId = R.string.condition_612;
-                break;
-            case 615:
-                stringId = R.string.condition_615;
-                break;
-            case 616:
-                stringId = R.string.condition_616;
-                break;
-            case 620:
-                stringId = R.string.condition_620;
-                break;
-            case 621:
-                stringId = R.string.condition_621;
-                break;
-            case 622:
-                stringId = R.string.condition_622;
-                break;
-            case 701:
-                stringId = R.string.condition_701;
-                break;
-            case 711:
-                stringId = R.string.condition_711;
-                break;
-            case 721:
-                stringId = R.string.condition_721;
-                break;
-            case 731:
-                stringId = R.string.condition_731;
-                break;
-            case 741:
-                stringId = R.string.condition_741;
-                break;
-            case 751:
-                stringId = R.string.condition_751;
-                break;
-            case 761:
-                stringId = R.string.condition_761;
-                break;
-            case 762:
-                stringId = R.string.condition_762;
-                break;
-            case 771:
-                stringId = R.string.condition_771;
-                break;
-            case 781:
-                stringId = R.string.condition_781;
-                break;
-            case 800:
-                stringId = R.string.condition_800;
-                break;
-            case 801:
-                stringId = R.string.condition_801;
-                break;
-            case 802:
-                stringId = R.string.condition_802;
-                break;
-            case 803:
-                stringId = R.string.condition_803;
-                break;
-            case 804:
-                stringId = R.string.condition_804;
-                break;
-            case 900:
-                stringId = R.string.condition_900;
-                break;
-            case 901:
-                stringId = R.string.condition_901;
-                break;
-            case 902:
-                stringId = R.string.condition_902;
-                break;
-            case 903:
-                stringId = R.string.condition_903;
-                break;
-            case 904:
-                stringId = R.string.condition_904;
-                break;
-            case 905:
-                stringId = R.string.condition_905;
-                break;
-            case 906:
-                stringId = R.string.condition_906;
-                break;
-            case 951:
-                stringId = R.string.condition_951;
-                break;
-            case 952:
-                stringId = R.string.condition_952;
-                break;
-            case 953:
-                stringId = R.string.condition_953;
-                break;
-            case 954:
-                stringId = R.string.condition_954;
-                break;
-            case 955:
-                stringId = R.string.condition_955;
-                break;
-            case 956:
-                stringId = R.string.condition_956;
-                break;
-            case 957:
-                stringId = R.string.condition_957;
-                break;
-            case 958:
-                stringId = R.string.condition_958;
-                break;
-            case 959:
-                stringId = R.string.condition_959;
-                break;
-            case 960:
-                stringId = R.string.condition_960;
-                break;
-            case 961:
-                stringId = R.string.condition_961;
-                break;
-            case 962:
-                stringId = R.string.condition_962;
-                break;
-            default:
-                return context.getString(R.string.condition_unknown, weatherId);
+    public static int getImageResource(int isDay, int weatherCode) {
+        if (isDay == 1)//is day
+        {
+            switch (weatherCode) {
+                case 1000:
+                    return R.drawable.d_113;
+                case 1003:
+                    return R.drawable.d_116;
+                case 1006:
+                    return R.drawable.d_119;
+                case 1009:
+                    return R.drawable.d_122;
+                case 1030:
+                    return R.drawable.d_143;
+                case 1063:
+                    return R.drawable.d_176;
+                case 1069:
+                    return R.drawable.d_179;
+                case 1072:
+                    return R.drawable.d_185;
+                case 1087:
+                    return R.drawable.d_200;
+                case 1114:
+                    return R.drawable.d_227;
+                case 1117:
+                    return R.drawable.d_230;
+                case 1135:
+                    return R.drawable.d_248;
+                case 1147:
+                    return R.drawable.d_260;
+                case 1150:
+                    return R.drawable.d_263;
+                case 1153:
+                    return R.drawable.d_266;
+                case 1168:
+                    return R.drawable.d_281;
+                case 1171:
+                    return R.drawable.d_284;
+                case 1180:
+                    return R.drawable.d_293;
+                case 1183:
+                    return R.drawable.d_296;
+                case 1186:
+                    return R.drawable.d_299;
+                case 1189:
+                    return R.drawable.d_302;
+                case 1192:
+                    return R.drawable.d_305;
+                case 1195:
+                    return R.drawable.d_308;
+                case 1198:
+                    return R.drawable.d_311;
+                case 1201:
+                    return R.drawable.d_314;
+                case 1204:
+                    return R.drawable.d_317;
+                case 1207:
+                    return R.drawable.d_320;
+                case 1210:
+                    return R.drawable.d_323;
+                case 1213:
+                    return R.drawable.d_326;
+                case 1216:
+                    return R.drawable.d_329;
+                case 1219:
+                    return R.drawable.d_332;
+                case 1222:
+                    return R.drawable.d_335;
+                case 1225:
+                    return R.drawable.d_338;
+                case 1237:
+                    return R.drawable.d_350;
+                case 1240:
+                    return R.drawable.d_353;
+                case 1243:
+                    return R.drawable.d_356;
+                case 1246:
+                    return R.drawable.d_359;
+                case 1249:
+                    return R.drawable.d_362;
+                case 1252:
+                    return R.drawable.d_365;
+                case 1255:
+                    return R.drawable.d_368;
+                case 1258:
+                    return R.drawable.d_371;
+                case 1261:
+                    return R.drawable.d_374;
+                case 1264:
+                    return R.drawable.d_377;
+                case 1273:
+                    return R.drawable.d_386;
+                case 1276:
+                    return R.drawable.d_389;
+                case 1279:
+                    return R.drawable.d_392;
+                case 1282:
+                    return R.drawable.d_395;
+            }
         }
-        return context.getString(stringId);
-    }
-
-    /**
-     * Helper method to provide the icon resource id according to the weather condition id returned
-     * by the OpenWeatherMap call.
-     *
-     * @param weatherId from OpenWeatherMap API response
-     *
-     * @return resource id for the corresponding icon. -1 if no relation is found.
-     */
-    public static int getIconResourceForWeatherCondition(int weatherId) {
-        /*
-         * Based on weather code data found at:
-         * See http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
-         */
-        if (weatherId >= 200 && weatherId <= 232) {
-            return R.drawable.ic_storm;
-        } else if (weatherId >= 300 && weatherId <= 321) {
-            return R.drawable.ic_light_rain;
-        } else if (weatherId >= 500 && weatherId <= 504) {
-            return R.drawable.ic_rain;
-        } else if (weatherId == 511) {
-            return R.drawable.ic_snow;
-        } else if (weatherId >= 520 && weatherId <= 531) {
-            return R.drawable.ic_rain;
-        } else if (weatherId >= 600 && weatherId <= 622) {
-            return R.drawable.ic_snow;
-        } else if (weatherId >= 701 && weatherId <= 761) {
-            return R.drawable.ic_fog;
-        } else if (weatherId == 761 || weatherId == 781) {
-            return R.drawable.ic_storm;
-        } else if (weatherId == 800) {
-            return R.drawable.ic_clear;
-        } else if (weatherId == 801) {
-            return R.drawable.ic_light_clouds;
-        } else if (weatherId >= 802 && weatherId <= 804) {
-            return R.drawable.ic_cloudy;
+        else
+        {
+            switch (weatherCode)
+            {
+                case 1000:
+                    return R.drawable.n_113;
+                case 1003:
+                    return R.drawable.n_116;
+                case 1006:
+                    return R.drawable.n_119;
+                case 1009:
+                    return R.drawable.n_122;
+                case 1030:
+                    return R.drawable.n_143;
+                case 1063:
+                    return R.drawable.n_176;
+                case 1069:
+                    return R.drawable.n_179;
+                case 1072:
+                    return R.drawable.n_185;
+                case 1087:
+                    return R.drawable.n_200;
+                case 1114:
+                    return R.drawable.n_227;
+                case 1117:
+                    return R.drawable.n_230;
+                case 1135:
+                    return R.drawable.n_248;
+                case 1147:
+                    return R.drawable.n_260;
+                case 1150:
+                    return R.drawable.n_263;
+                case 1153:
+                    return R.drawable.n_266;
+                case 1168:
+                    return R.drawable.n_281;
+                case 1171:
+                    return R.drawable.n_284;
+                case 1180:
+                    return R.drawable.n_293;
+                case 1183:
+                    return R.drawable.n_296;
+                case 1186:
+                    return R.drawable.n_299;
+                case 1189:
+                    return R.drawable.n_302;
+                case 1192:
+                    return R.drawable.n_305;
+                case 1195:
+                    return R.drawable.n_308;
+                case 1198:
+                    return R.drawable.n_311;
+                case 1201:
+                    return R.drawable.n_314;
+                case 1204:
+                    return R.drawable.n_317;
+                case 1207:
+                    return R.drawable.n_320;
+                case 1210:
+                    return R.drawable.n_323;
+                case 1213:
+                    return R.drawable.n_326;
+                case 1216:
+                    return R.drawable.n_329;
+                case 1219:
+                    return R.drawable.n_332;
+                case 1222:
+                    return R.drawable.n_335;
+                case 1225:
+                    return R.drawable.n_338;
+                case 1237:
+                    return R.drawable.n_350;
+                case 1240:
+                    return R.drawable.n_353;
+                case 1243:
+                    return R.drawable.n_356;
+                case 1246:
+                    return R.drawable.n_359;
+                case 1249:
+                    return R.drawable.n_362;
+                case 1252:
+                    return R.drawable.n_365;
+                case 1255:
+                    return R.drawable.n_368;
+                case 1258:
+                    return R.drawable.n_371;
+                case 1261:
+                    return R.drawable.n_374;
+                case 1264:
+                    return R.drawable.n_377;
+                case 1273:
+                    return R.drawable.n_386;
+                case 1276:
+                    return R.drawable.n_389;
+                case 1279:
+                    return R.drawable.n_392;
+                case 1282:
+                    return R.drawable.n_395;
+            }
         }
-        return -1;
-    }
-
-    /**
-     * Helper method to provide the art resource id according to the weather condition id returned
-     * by the OpenWeatherMap call.
-     *
-     * @param weatherId from OpenWeatherMap API response
-     *
-     * @return resource id for the corresponding icon. -1 if no relation is found.
-     */
-    public static int getArtResourceForWeatherCondition(int weatherId) {
-        /*
-         * Based on weather code data found at:
-         * http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
-         */
-        if (weatherId >= 200 && weatherId <= 232) {
-            return R.drawable.art_storm;
-        } else if (weatherId >= 300 && weatherId <= 321) {
-            return R.drawable.art_light_rain;
-        } else if (weatherId >= 500 && weatherId <= 504) {
-            return R.drawable.art_rain;
-        } else if (weatherId == 511) {
-            return R.drawable.art_snow;
-        } else if (weatherId >= 520 && weatherId <= 531) {
-            return R.drawable.art_rain;
-        } else if (weatherId >= 600 && weatherId <= 622) {
-            return R.drawable.art_snow;
-        } else if (weatherId >= 701 && weatherId <= 761) {
-            return R.drawable.art_fog;
-        } else if (weatherId == 761 || weatherId == 771 || weatherId == 781) {
-            return R.drawable.art_storm;
-        } else if (weatherId == 800) {
-            return R.drawable.art_clear;
-        } else if (weatherId == 801) {
-            return R.drawable.art_light_clouds;
-        } else if (weatherId >= 802 && weatherId <= 804) {
-            return R.drawable.art_clouds;
-        } else if (weatherId >= 900 && weatherId <= 906) {
-            return R.drawable.art_storm;
-        } else if (weatherId >= 958 && weatherId <= 962) {
-            return R.drawable.art_storm;
-        } else if (weatherId >= 951 && weatherId <= 957) {
-            return R.drawable.art_clear;
-        }
-        Log.e(LOG_TAG, "Unknown Weather: " + weatherId);
-        return R.drawable.art_storm;
+        return 0;
     }
 }

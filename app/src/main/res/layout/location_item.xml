@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter a location:-"
+        android:layout_margin="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/location_editText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:inputType="textCapWords"
+        android:backgroundTint="@color/black"
+        android:hint="Default: Jamnagar"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/location_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="save"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

@@ -3,10 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/drawable/back.xml" value="0.20555555555555555" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/drawable/cancel.xml" value="0.20925925925925926" />
         <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/drawable/card_view.xml" value="0.21743589743589745" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/drawable/progress_bg.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/drawable/refresh.xml" value="0.20555555555555555" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/drawable/today.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/activity_detail.xml" value="0.18" />
         <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/activity_forecast.xml" value="0.2046875" />
         <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/activity_settings.xml" value="0.25" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/check.xml" value="0.2046875" />
         <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/forecast_list_item.xml" value="0.22" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/hour_detail_item.xml" value="0.2" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/location_item.xml" value="0.2046875" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/portfolio_item.xml" value="0.2046875" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/layout/temperature_units_item.xml" value="0.2046875" />
+        <entry key="..\:/Users/baps/AndroidStudioProjects/SunshineWeather/app/src/main/res/menu/main_menu.xml" value="0.2046875" />
       </map>
     </option>
   </component>

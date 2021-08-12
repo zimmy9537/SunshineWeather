@@ -155,7 +155,7 @@ public final class SunshineDateUtils {
      *
      * @return the string day of the week
      */
-    private static String getDayName(Context context, long dateInMillis) {
+    public static String getDayName(Context context, long dateInMillis) {
         /*
          * If the date is today, return the localized version of "Today" instead of the actual
          * day name.
