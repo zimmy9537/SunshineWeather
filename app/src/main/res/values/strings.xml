@@ -134,6 +134,9 @@
     <string name="share_weather_details">Share Weather Details</string>
     <string name="action_map">open map</string>
     <string name="settings">Settings</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 
 
     <!-- - - - - - - - - - - -->

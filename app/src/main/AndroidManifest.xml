@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="android.example.sunshineweather">
+    package="android.example.sunshineweather" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SunshineWeather"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <receiver
+            android:name=".WeatherWidget"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_widget_info" />
+        </receiver>
+
         <activity
             android:name=".DetailActivity"
             android:exported="true" />
@@ -20,7 +32,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
