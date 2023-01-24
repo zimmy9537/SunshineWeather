@@ -1,5 +1,5 @@
 
-package android.example.sunshineweather.weatherAPI;
+package android.example.sunshineweather.weatherAPI.apidata;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

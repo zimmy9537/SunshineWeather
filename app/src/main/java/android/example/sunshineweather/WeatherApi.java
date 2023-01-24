@@ -1,10 +1,9 @@
 package android.example.sunshineweather;
 
-import android.example.sunshineweather.weatherAPI.WeatherList;
+import android.example.sunshineweather.weatherAPI.apidata.WeatherList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface WeatherApi {

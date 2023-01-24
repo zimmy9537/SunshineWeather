@@ -3,7 +3,7 @@ package android.example.sunshineweather;
 import android.content.Context;
 import android.example.sunshineweather.utilities.SunshineDateUtils;
 import android.example.sunshineweather.utilities.SunshineWeatherUtils;
-import android.example.sunshineweather.weatherAPI.Forecastday;
+import android.example.sunshineweather.weatherAPI.apidata.Forecastday;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;

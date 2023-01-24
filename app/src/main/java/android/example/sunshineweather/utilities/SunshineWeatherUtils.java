@@ -1,9 +1,9 @@
 package android.example.sunshineweather.utilities;
 
 import android.example.sunshineweather.R;
-import android.example.sunshineweather.weatherAPI.Current;
-import android.example.sunshineweather.weatherAPI.Day;
-import android.example.sunshineweather.weatherAPI.Hour;
+import android.example.sunshineweather.weatherAPI.apidata.Current;
+import android.example.sunshineweather.weatherAPI.apidata.Day;
+import android.example.sunshineweather.weatherAPI.apidata.Hour;
 
 public final class SunshineWeatherUtils {
 

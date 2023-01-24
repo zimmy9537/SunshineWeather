@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/weatherToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -31,10 +32,10 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:id="@+id/scrollviewMain"
+        android:id="@+id/scrollViewMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/weatherToolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/city_name_textview"
+                            android:id="@+id/preferredCity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="2dp"
@@ -83,7 +84,7 @@
                             android:textSize="22sp" />
 
                         <TextView
-                            android:id="@+id/region_country_textView"
+                            android:id="@+id/respectiveRegionCountry"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -110,7 +111,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/feels_like_temp"
+                            android:id="@+id/feelsLikeTemperature"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
@@ -127,7 +128,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/today_ll"
+                    android:id="@+id/todayLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/card_view"
@@ -143,7 +144,7 @@
                         android:layout_marginBottom="10dp">
 
                         <TextView
-                            android:id="@+id/current_date"
+                            android:id="@+id/dayOfTheWeek"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -154,7 +155,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/local_time"
+                            android:id="@+id/todayTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -171,7 +172,7 @@
                         android:layout_marginBottom="10dp">
 
                         <TextView
-                            android:id="@+id/maximum_current"
+                            android:id="@+id/maximumTemperature"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -182,7 +183,7 @@
                             android:textStyle="bold" />
 
                         <ImageView
-                            android:id="@+id/current_weather_photo"
+                            android:id="@+id/weatherTypeImage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -194,7 +195,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/minimum_current"
+                            android:id="@+id/minimumTemperature"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -204,7 +205,7 @@
                             android:textSize="22sp" />
 
                         <TextView
-                            android:id="@+id/current_weather_details_tt"
+                            android:id="@+id/weatherTypeTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -266,7 +267,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/uv_valueText"
+                        android:id="@+id/uv_index_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -316,7 +317,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/sunrise_valueText"
+                        android:id="@+id/sunrise_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -366,7 +367,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/sunset_valueText"
+                        android:id="@+id/sunset_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -416,7 +417,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/wind_valueText"
+                        android:id="@+id/wind_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -466,7 +467,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/AQI_valueText"
+                        android:id="@+id/aqi_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -517,7 +518,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/humidity_valueText"
+                        android:id="@+id/humidity_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -533,14 +534,14 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/weather_recyclerview"
+                android:id="@+id/weatherRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 
     <ProgressBar
-        android:id="@+id/progress_MainActivity"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -549,7 +550,7 @@
         android:progress="0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/refresh_floatingButton"
+        android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

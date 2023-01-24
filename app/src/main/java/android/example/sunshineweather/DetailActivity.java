@@ -5,9 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.example.sunshineweather.weatherAPI.Current;
-import android.example.sunshineweather.weatherAPI.Forecast;
-import android.example.sunshineweather.weatherAPI.Hour;
+import android.example.sunshineweather.weatherAPI.apidata.Current;
+import android.example.sunshineweather.weatherAPI.apidata.Forecast;
+import android.example.sunshineweather.weatherAPI.apidata.Hour;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,10 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 

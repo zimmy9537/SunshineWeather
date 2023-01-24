@@ -1,5 +1,5 @@
 
-package android.example.sunshineweather.weatherAPI;
+package android.example.sunshineweather.weatherAPI.apidata;
 
 import java.io.Serializable;
 import java.util.List;

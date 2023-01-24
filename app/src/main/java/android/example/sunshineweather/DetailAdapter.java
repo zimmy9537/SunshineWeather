@@ -2,7 +2,7 @@ package android.example.sunshineweather;
 
 import android.content.Context;
 import android.example.sunshineweather.utilities.SunshineWeatherUtils;
-import android.example.sunshineweather.weatherAPI.Hour;
+import android.example.sunshineweather.weatherAPI.apidata.Hour;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

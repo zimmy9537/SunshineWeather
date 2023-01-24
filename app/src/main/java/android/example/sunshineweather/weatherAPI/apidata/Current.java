@@ -1,20 +1,19 @@
 
-package android.example.sunshineweather.weatherAPI;
-
+package android.example.sunshineweather.weatherAPI.apidata;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Hour implements Serializable {
+public class Current implements Serializable {
 
-    @SerializedName("time_epoch")
+    @SerializedName("last_updated_epoch")
     @Expose
-    private Integer timeEpoch;
-    @SerializedName("time")
+    private Integer lastUpdatedEpoch;
+    @SerializedName("last_updated")
     @Expose
-    private String time;
+    private String lastUpdated;
     @SerializedName("temp_c")
     @Expose
     private Double tempC;
@@ -26,7 +25,7 @@ public class Hour implements Serializable {
     private Integer isDay;
     @SerializedName("condition")
     @Expose
-    private Condition__2 condition;
+    private Condition condition;
     @SerializedName("wind_mph")
     @Expose
     private Double windMph;
@@ -63,66 +62,39 @@ public class Hour implements Serializable {
     @SerializedName("feelslike_f")
     @Expose
     private Double feelslikeF;
-    @SerializedName("windchill_c")
-    @Expose
-    private Double windchillC;
-    @SerializedName("windchill_f")
-    @Expose
-    private Double windchillF;
-    @SerializedName("heatindex_c")
-    @Expose
-    private Double heatindexC;
-    @SerializedName("heatindex_f")
-    @Expose
-    private Double heatindexF;
-    @SerializedName("dewpoint_c")
-    @Expose
-    private Double dewpointC;
-    @SerializedName("dewpoint_f")
-    @Expose
-    private Double dewpointF;
-    @SerializedName("will_it_rain")
-    @Expose
-    private Integer willItRain;
-    @SerializedName("chance_of_rain")
-    @Expose
-    private String chanceOfRain;
-    @SerializedName("will_it_snow")
-    @Expose
-    private Integer willItSnow;
-    @SerializedName("chance_of_snow")
-    @Expose
-    private String chanceOfSnow;
     @SerializedName("vis_km")
     @Expose
     private Double visKm;
     @SerializedName("vis_miles")
     @Expose
     private Double visMiles;
+    @SerializedName("uv")
+    @Expose
+    private Double uv;
     @SerializedName("gust_mph")
     @Expose
     private Double gustMph;
     @SerializedName("gust_kph")
     @Expose
     private Double gustKph;
-    @SerializedName("uv")
+    @SerializedName("air_quality")
     @Expose
-    private Double uv;
+    private AirQuality airQuality;
 
-    public Integer getTimeEpoch() {
-        return timeEpoch;
+    public Integer getLastUpdatedEpoch() {
+        return lastUpdatedEpoch;
     }
 
-    public void setTimeEpoch(Integer timeEpoch) {
-        this.timeEpoch = timeEpoch;
+    public void setLastUpdatedEpoch(Integer lastUpdatedEpoch) {
+        this.lastUpdatedEpoch = lastUpdatedEpoch;
     }
 
-    public String getTime() {
-        return time;
+    public String getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public Double getTempC() {
@@ -149,11 +121,11 @@ public class Hour implements Serializable {
         this.isDay = isDay;
     }
 
-    public Condition__2 getCondition() {
+    public Condition getCondition() {
         return condition;
     }
 
-    public void setCondition(Condition__2 condition) {
+    public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
@@ -253,86 +225,6 @@ public class Hour implements Serializable {
         this.feelslikeF = feelslikeF;
     }
 
-    public Double getWindchillC() {
-        return windchillC;
-    }
-
-    public void setWindchillC(Double windchillC) {
-        this.windchillC = windchillC;
-    }
-
-    public Double getWindchillF() {
-        return windchillF;
-    }
-
-    public void setWindchillF(Double windchillF) {
-        this.windchillF = windchillF;
-    }
-
-    public Double getHeatindexC() {
-        return heatindexC;
-    }
-
-    public void setHeatindexC(Double heatindexC) {
-        this.heatindexC = heatindexC;
-    }
-
-    public Double getHeatindexF() {
-        return heatindexF;
-    }
-
-    public void setHeatindexF(Double heatindexF) {
-        this.heatindexF = heatindexF;
-    }
-
-    public Double getDewpointC() {
-        return dewpointC;
-    }
-
-    public void setDewpointC(Double dewpointC) {
-        this.dewpointC = dewpointC;
-    }
-
-    public Double getDewpointF() {
-        return dewpointF;
-    }
-
-    public void setDewpointF(Double dewpointF) {
-        this.dewpointF = dewpointF;
-    }
-
-    public Integer getWillItRain() {
-        return willItRain;
-    }
-
-    public void setWillItRain(Integer willItRain) {
-        this.willItRain = willItRain;
-    }
-
-    public String getChanceOfRain() {
-        return chanceOfRain;
-    }
-
-    public void setChanceOfRain(String chanceOfRain) {
-        this.chanceOfRain = chanceOfRain;
-    }
-
-    public Integer getWillItSnow() {
-        return willItSnow;
-    }
-
-    public void setWillItSnow(Integer willItSnow) {
-        this.willItSnow = willItSnow;
-    }
-
-    public String getChanceOfSnow() {
-        return chanceOfSnow;
-    }
-
-    public void setChanceOfSnow(String chanceOfSnow) {
-        this.chanceOfSnow = chanceOfSnow;
-    }
-
     public Double getVisKm() {
         return visKm;
     }
@@ -347,6 +239,14 @@ public class Hour implements Serializable {
 
     public void setVisMiles(Double visMiles) {
         this.visMiles = visMiles;
+    }
+
+    public Double getUv() {
+        return uv;
+    }
+
+    public void setUv(Double uv) {
+        this.uv = uv;
     }
 
     public Double getGustMph() {
@@ -365,12 +265,12 @@ public class Hour implements Serializable {
         this.gustKph = gustKph;
     }
 
-    public Double getUv() {
-        return uv;
+    public AirQuality getAirQuality() {
+        return airQuality;
     }
 
-    public void setUv(Double uv) {
-        this.uv = uv;
+    public void setAirQuality(AirQuality airQuality) {
+        this.airQuality = airQuality;
     }
 
 }
