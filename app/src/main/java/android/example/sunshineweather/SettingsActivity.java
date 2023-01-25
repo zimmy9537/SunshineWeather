@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.example.sunshineweather.constants.Constant;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -40,11 +41,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
-    public static final String MyPREFERENCES = "MyPrefs";
-    public static final String location_preference = "locationKey";
-    public static final String unit_preference = "UnitsKey";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         //this shared preference is for retrieving the data;
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-        String location_saved = sharedPreferences.getString(location_preference, "Jamnagar");
-        boolean units_saved = sharedPreferences.getBoolean(unit_preference, true);
+        sharedPreferences = getSharedPreferences(Constant.MyPREFERENCES, MODE_PRIVATE);
+        String location_saved = sharedPreferences.getString(Constant.location_preference, Constant.JAMNAGAR);
+        boolean units_saved = sharedPreferences.getBoolean(Constant.unit_preference, true);
         if (units_saved) {
             temperatureUnits_text.setText(METRIC);
         } else {
@@ -111,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity {
                         if (!TextUtils.isEmpty(customLocationDialog.locationEditText.getText().toString().trim())) {
                             location_text.setText(customLocationDialog.locationEditText.getText().toString().trim());
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(location_preference, customLocationDialog.locationEditText.getText().toString().trim());
+                            editor.putString(Constant.location_preference, customLocationDialog.locationEditText.getText().toString().trim());
                             editor.apply();
                             Toast.makeText(SettingsActivity.this, "settings updated!", Toast.LENGTH_SHORT).show();
                             customLocationDialog.dismiss();
@@ -163,7 +159,7 @@ public class SettingsActivity extends AppCompatActivity {
                             temperatureUnits_text.setText(IMPERIAL);
                             isMetric = false;
                         }
-                        editor.putBoolean(unit_preference, isMetric);
+                        editor.putBoolean(Constant.unit_preference, isMetric);
                         editor.apply();
                         customTemperatureUnitsDialog.dismiss();
                     }
