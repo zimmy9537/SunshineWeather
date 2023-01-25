@@ -50,31 +50,31 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             }
             is ResultData.Success -> {
                 binding.progressBar.visibility = View.GONE
-                val weatherList = resultData.data
+                weatherList = resultData.data
                 if (weatherList == null) {
                     Toast.makeText(this, "Try again later", Toast.LENGTH_SHORT).show()
                     return@Observer
                 }
-                foreCastList = weatherList.forecast.forecastday as ArrayList<Forecastday>
-                forecast = weatherList.forecast
-                val current = weatherList.current
-                val location = weatherList.location
-                val country = location.country
-                var region = location.region
-                region = if (region.isEmpty()) {
+                foreCastList = weatherList?.forecast?.forecastday as ArrayList<Forecastday>
+                forecast = weatherList?.forecast
+                val current = weatherList?.current
+                val location = weatherList?.location
+                val country = location?.country
+                var region = location?.region
+                region = if (region?.isEmpty() == true) {
                     country
                 } else {
-                    location.region + ", " + country
+                    location?.region + ", " + country
                 }
                 binding.respectiveRegionCountry.text = region
                 val sunrise = foreCastList.get(0).astro.sunrise
                 val sunset = foreCastList.get(0).astro.sunset
-                val uvIndex = current.uv
-                val aqi = current.airQuality.usEpaIndex
-                val humidity = current.humidity
+                val uvIndex = current?.uv
+                val aqi = current?.airQuality?.usEpaIndex
+                val humidity = current?.humidity
 
                 //set Time
-                var time: String? = location.localtime.substring(11)
+                var time: String? = location?.localtime?.substring(11)
                 try {
                     val sdf = SimpleDateFormat("H:mm")
                     val dateObj = sdf.parse(time)
@@ -86,13 +86,13 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 binding.uvIndexView.text = uvIndex.toString()
                 binding.sunriseView.text = sunrise
                 binding.sunsetView.text = sunset
-                val wind = current.windKph
+                val wind = current?.windKph
                 binding.windView.text = "$wind km/h"
                 binding.aqiView.text = aqi.toString()
                 binding.humidityView.text = "$humidity%"
 
                 //temp
-                val feelsLike = current.feelslikeC
+                val feelsLike = current?.feelslikeC
                 binding.feelsLikeTemperature.text =
                     SunshineWeatherUtils.getTemperatureFeelsLike(current, isMetric)
                 val forecastday = foreCastList[0]
@@ -111,11 +111,15 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                     binding.minimumTemperature.text =
                         SunshineWeatherUtils.getTemperatureMinimum(forecastday.day, isMetric)
                     binding.weatherTypeTextView.text = weatherType
-                    binding.weatherTypeImage.setImageResource(
+                    weatherList?.current?.isDay?.let {
                         SunshineWeatherUtils.getImageResource(
-                            weatherList.current.isDay, forecastday.day.condition.code
+                            it, forecastday.day.condition.code
                         )
-                    )
+                    }?.let {
+                        binding.weatherTypeImage.setImageResource(
+                            it
+                        )
+                    }
                 } catch (e: ParseException) {
                     e.printStackTrace()
                     binding.progressBar.visibility = View.GONE
@@ -128,8 +132,8 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                     WeatherAdapter(this@MainActivity, foreCastList, isMetric)
                 binding.progressBar.visibility = View.GONE
                 binding.scrollViewMain.visibility = View.VISIBLE
-
             }
+
             else -> {
                 binding.progressBar.visibility = View.GONE
                 Toast.makeText(this, "Try again later", Toast.LENGTH_SHORT).show()
@@ -137,7 +141,6 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         }
     }
 
-    @delegate:Inject
     private val weatherViewModel: WeatherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,7 +160,11 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         loadWeatherFromJson()
         binding.refreshButton.setOnClickListener(View.OnClickListener { loadWeatherFromJson() })
         binding.todayLinearLayout.setOnClickListener(View.OnClickListener {
-            forecast = weatherList!!.forecast
+            val forecast = weatherList?.forecast
+            if (forecast == null) {
+                Toast.makeText(this@MainActivity, "Try again later", Toast.LENGTH_SHORT).show()
+                return@OnClickListener
+            }
             val intent = Intent(this@MainActivity, DetailActivity::class.java)
             intent.putExtra("forecast", forecast)
             intent.putExtra("current", weatherList!!.current)
@@ -169,7 +176,9 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private fun loadWeatherFromJson() {
         GlobalScope.launch {
             val liveData = weatherViewModel.getWeatherList(city)
-            liveData.observe(this@MainActivity, observer)
+            runOnUiThread {
+                liveData.observe(this@MainActivity, observer)
+            }
         }
     }
 
